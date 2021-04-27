@@ -4,22 +4,16 @@ import com.alibaba.fastjson.JSON;
 import com.jonbore.clickhouse.ClickHouseClient;
 import com.jonbore.clickhouse.config.ClickHouseConfig;
 import org.apache.flink.api.common.functions.FlatMapFunction;
-import org.apache.flink.api.common.serialization.AbstractDeserializationSchema;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
-import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple4;
-import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.api.java.utils.MultipleParameterTool;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.connector.jdbc.JdbcInputFormat;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSource;
 import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
-import org.apache.flink.types.Row;
 import org.apache.flink.util.Collector;
 
 import java.text.SimpleDateFormat;
@@ -46,9 +40,9 @@ public class RabbitMQJob {
                 new SimpleStringSchema()
         ));
         input
-                .filter(value -> value != null && !value.isEmpty())
-                .flatMap(new SplitMessage())
-                .addSink(new RabbitMQSinkClickhouse());
+                .filter(value -> value != null && !value.isEmpty()).name("myFilter")
+                .flatMap(new SplitMessage()).name("myFlatMap")
+                .addSink(new RabbitMQSinkClickhouse()).name("clickhouse");
 
         env.execute();
     }
