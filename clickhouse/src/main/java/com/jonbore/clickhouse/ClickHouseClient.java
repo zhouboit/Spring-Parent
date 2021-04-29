@@ -47,6 +47,8 @@ public class ClickHouseClient {
     public Connection getConnection() {
         ClickHouseProperties properties = new ClickHouseProperties();
         properties.setDatabase(clickHouseConfig.getDatabase());
+        properties.setUser(clickHouseConfig.getUsername());
+        properties.setPassword(clickHouseConfig.getPassword());
         String url = clickHouseConfig.getAddress();
         if (clickHouseDataSource == null) {
             clickHouseDataSource = new ClickHouseDataSource(url, properties);
