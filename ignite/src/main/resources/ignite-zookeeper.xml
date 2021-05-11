@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+
+         http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean name="ZookeeperIgniteConfiguration" class="org.apache.ignite.configuration.IgniteConfiguration"
+          id="ignite.cfg">
+        <property name="includeEventTypes">
+            <list>
+                <!-- 事件描述：节点正常下线和异常下线事件。事件触发点：其余节点会收到相应通知。-->
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_NODE_LEFT"/>
+                <util:constant static-field="org.apache.ignite.events.EventType.EVT_NODE_FAILED"/>
+            </list>
+        </property>
+
+        <property name="loadBalancingSpi">
+            <bean class="org.apache.ignite.spi.loadbalancing.roundrobin.RoundRobinLoadBalancingSpi">
+                <!-- Activate the per-task round-robin mode. -->
+                <property name="perTask" value="true"/>
+            </bean>
+        </property>
+
+        <!--支持自动作业故障转移-->
+        <property name="failoverSpi">
+            <bean class="org.apache.ignite.spi.failover.always.AlwaysFailoverSpi">
+                <property name="maximumFailoverAttempts" value="5"/>
+            </bean>
+        </property>
+
+        <property name="executorConfiguration">
+            <list>
+                <bean class="org.apache.ignite.configuration.ExecutorConfiguration">
+                    <property name="name" value="myPool"/>
+                    <property name="size" value="20"/>
+                </bean>
+            </list>
+        </property>
+
+        <!-- Set to true to enable distributed class loading for examples, default is false. -->
+        <property name="peerClassLoadingEnabled" value="true"/>
+        <property name="publicThreadPoolSize" value="16"/>
+        <!-- Configure system thread pool. -->
+        <property name="systemThreadPoolSize" value="8"/>
+
+        <property name="dataStorageConfiguration">
+            <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
+                <property name="pageSize" value="#{8 * 1024}"/>
+                <property name="writeThrottlingEnabled" value="true"/>
+                <!-- set the size of wal segments to 1GB -->
+                <property name="walSegmentSize" value="#{1024 * 1024 * 1024}"/>
+
+                <property name="dataRegionConfigurations">
+                    <list>
+                        <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
+                            <!--<property name="persistenceEnabled" value="true"/>-->
+                            <property name="name" value="40MB_Region_Eviction"/>
+                            <!-- Memory region of 20 MB initial size. -->
+                            <property name="initialSize" value="#{20 * 1024 * 1024}"/>
+                            <!-- Maximum size is 40 MB. -->
+                            <property name="maxSize" value="#{40 * 1024 * 1024}"/>
+                            <!-- Enabling eviction for this memory region. -->
+                            <property name="pageEvictionMode" value="RANDOM_2_LRU"/>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+
+        <property name="cacheConfiguration">
+            <list>
+                <!-- Cache that is mapped to a specific data region. -->
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="name" value="SampleCache"/>
+                    <property name="dataRegionName" value="40MB_Region_Eviction"/>
+                </bean>
+            </list>
+        </property>
+
+        <property name="discoverySpi">
+            <bean class="org.apache.ignite.spi.discovery.zk.ZookeeperDiscoverySpi">
+                <property name="zkConnectionString" value="192.168.80.41:2181"/>
+                <property name="sessionTimeout" value="30000"/>
+                <property name="joinTimeout" value="10000"/>
+            </bean>
+        </property>
+
+        <!--    ignite与access统一使用slf4j + log4j2记录日志    -->
+        <property name="gridLogger">
+            <bean class="org.apache.ignite.logger.slf4j.Slf4jLogger"/>
+        </property>
+
+    </bean>
+</beans>

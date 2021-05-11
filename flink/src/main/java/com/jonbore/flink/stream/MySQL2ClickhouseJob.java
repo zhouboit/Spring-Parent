@@ -1,5 +1,6 @@
 package com.jonbore.flink.stream;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import com.jonbore.clickhouse.ClickHouseClient;
@@ -17,7 +18,8 @@ import org.apache.flink.util.Collector;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.*;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class MySQL2ClickhouseJob {
     public static void main(String[] args) throws Exception {
@@ -160,9 +162,10 @@ public class MySQL2ClickhouseJob {
             targetDatabase = parameterTool.get("target");
             super.open(parameters);
             ClickHouseConfig clickHouseConfig = new ClickHouseConfig();
-            clickHouseConfig.setAddress("jdbc:clickhouse://192.168.80.43:8123");
+            clickHouseConfig.setAddress("jdbc:clickhouse://192.168.80.43:8123/default");
             clickHouseConfig.setPassword("123456");
             clickHouseConfig.setUsername("default");
+            clickHouseConfig.setDriverName("ru.yandex.clickhouse.ClickHouseDriver");
             instance = ClickHouseClient.instance(clickHouseConfig);
         }
 
@@ -173,6 +176,11 @@ public class MySQL2ClickhouseJob {
             instance.executeUpdate("INSERT INTO default." + targetDatabase + " (id,code,name,`level`,is_publish,home_page_url,logout_url,description,create_date,update_date,img_name,item_order,is_manage,sys_type_id,data_hub_id,data_hub_oper_time) " +
                     " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", data);
         }
+//
+//        @Override
+//        public void invoke(Object value, Context context) throws Exception {
+//            System.out.println(JSON.toJSONString(value));
+//        }
 
         @Override
         public void close() throws Exception {
@@ -184,12 +192,17 @@ public class MySQL2ClickhouseJob {
 
         private static Object[] dataPkg(JSONObject row) {
             Object[] data = new Object[cols.length];
-            for (int i = 0; i < cols.length; i++) {
-                if (row.get(cols[i]) instanceof Date) {
-                    data[i] = sdf.format(row.get(cols[i]));
-                    continue;
+            try {
+                for (int i = 0; i < cols.length; i++) {
+                    if (row.get(cols[i]) instanceof Date) {
+                        data[i] = sdf.format(row.get(cols[i]));
+                        continue;
+                    }
+                    data[i] = row.get(cols[i]);
                 }
-                data[i] = row.get(cols[i]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.printf("error msg : %s col : %s data : %s \n", e.getMessage(), JSON.toJSONString(cols), JSON.toJSONString(row));
             }
             return data;
         }

@@ -1,7 +1,6 @@
 package com.jonbore.clickhouse.config;
 
 
-
 /**
  * @author zy.xiao
  * @date 2021-03-19
@@ -13,6 +12,7 @@ public class ClickHouseConfig {
     private String password;
     private String database;
     private Integer socketTimeout;
+    private String driverName;
     //动态设置属性
     private String requestUrl;
     private String clientIp;
@@ -55,6 +55,14 @@ public class ClickHouseConfig {
 
     public void setSocketTimeout(Integer socketTimeout) {
         this.socketTimeout = socketTimeout;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
     }
 
     public String getRequestUrl() {

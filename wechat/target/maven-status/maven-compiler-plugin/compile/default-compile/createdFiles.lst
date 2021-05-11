@@ -1,0 +1,6 @@
+com\jonbore\wechat\util\PKCS7Encoder.class
+com\jonbore\wechat\util\XMLParse.class
+com\jonbore\wechat\util\ByteGroup.class
+com\jonbore\wechat\util\SHA1.class
+com\jonbore\wechat\util\AesException.class
+com\jonbore\wechat\util\WXBizMsgCrypt.class

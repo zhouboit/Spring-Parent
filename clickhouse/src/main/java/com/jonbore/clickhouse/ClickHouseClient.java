@@ -3,12 +3,13 @@ package com.jonbore.clickhouse;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jonbore.clickhouse.config.ClickHouseConfig;
+import com.jonbore.clickhouse.config.DSPool;
 import ru.yandex.clickhouse.ClickHouseDataSource;
-import ru.yandex.clickhouse.settings.ClickHouseProperties;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -45,16 +46,8 @@ public class ClickHouseClient {
      * @date: 2021/3/37
      */
     public Connection getConnection() {
-        ClickHouseProperties properties = new ClickHouseProperties();
-        properties.setDatabase(clickHouseConfig.getDatabase());
-        properties.setUser(clickHouseConfig.getUsername());
-        properties.setPassword(clickHouseConfig.getPassword());
-        String url = clickHouseConfig.getAddress();
-        if (clickHouseDataSource == null) {
-            clickHouseDataSource = new ClickHouseDataSource(url, properties);
-        }
         try {
-            return clickHouseDataSource.getConnection();
+            return DSPool.getDataSource(clickHouseConfig.getDriverName(), clickHouseConfig.getAddress(), clickHouseConfig.getUsername(), clickHouseConfig.getPassword()).getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -367,5 +360,27 @@ public class ClickHouseClient {
             col = stringBuffer.toString();
         }
         return col;
+    }
+
+    public boolean executeBatchWithParams(String sql, List<Object[]> vals) throws SQLException {
+        boolean flag = true;
+        Connection conn = getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        try {
+            for (Object[] val : vals) {
+                for (int i = 1; i <= val.length; i++) {
+                    ps.setObject(i, val[i - 1]);
+                }
+                ps.addBatch();
+            }
+            int[] ints = ps.executeBatch();
+            flag = Arrays.stream(ints).sum() == vals.size();
+        } catch (Exception e) {
+            flag = false;
+            throw e;
+        } finally {
+            allClose(conn, ps, null);
+        }
+        return flag;
     }
 }
