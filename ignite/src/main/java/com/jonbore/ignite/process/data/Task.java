@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class TaskInfo {
+public class Task {
     private String id;
     private String tableName;
     private String majorId;

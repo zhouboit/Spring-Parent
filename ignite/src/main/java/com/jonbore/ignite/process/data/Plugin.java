@@ -10,6 +10,7 @@ public class Plugin {
     private Long total = 0L;
     private Long quality = 0L;
     private Long unQuality = 0L;
+    private String taskId;
 
     public String getId() {
         return id;
@@ -65,5 +66,13 @@ public class Plugin {
 
     public void setUnQuality(Long unQuality) {
         this.unQuality += unQuality;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 }

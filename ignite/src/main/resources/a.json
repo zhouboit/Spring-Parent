@@ -1,0 +1,167 @@
+{
+  "batchNum": "20210511090456286",
+  "beforeRule": "[{\"createTime\":1620691200000,\"id\":201,\"name\":\"值域校验\",\"param\":\"{\\\"dataField\\\":[{\\\"fieldName\\\":\\\"level\\\",\\\"array\\\":\\\"0,1\\\"}]}\",\"pluginCode\":\"QUALITY_VALUE_RANGE\",\"pluginId\":\"aca49b05-a187-4248-83d4-bdd3803bd862\",\"qId\":177,\"status\":1}]",
+  "dbTarget": "{\"dataMap\":{\"schema\":\"default\",\"password\":\"\",\"driver\":\"ru.yandex.clickhouse.ClickHouseDriver\",\"table_name\":\"dq_data_result\",\"url\":\"jdbc:clickhouse://192.168.5.131:8123/hfc_test\",\"username\":\"default\"}}",
+  "inMap": {
+    "normalTaskStr": "{\"dataAmount\":27,\"qId\":177,\"executeKey\":\"20210511090456286\",\"createTime\":1620723896000,\"id\":46172,\"taskInfo\":\"SELECT * FROM mes_sys_app_copy limit 0, 5000\",\"totalTask\":1,\"status\":0}",
+    "db_id": "223",
+    "major_json": "[{\"fieldNameCn\":\"id\",\"fieldName\":\"id\",\"scale\":0,\"isPk\":\"1\",\"isNull\":\"1\",\"isBusinessPk\":\"1\",\"fieldType\":\"VARCHAR\",\"fieldLength\":\"50\"}]",
+    "DataColumn": [
+      {
+        "fieldNameCn": "id",
+        "fieldName": "id",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "1",
+        "fieldType": "VARCHAR",
+        "fieldLength": "50"
+      },
+      {
+        "fieldNameCn": "编码",
+        "fieldName": "code",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "VARCHAR",
+        "fieldLength": "50"
+      },
+      {
+        "fieldNameCn": "名称",
+        "fieldName": "name",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "VARCHAR",
+        "fieldLength": "50"
+      },
+      {
+        "fieldNameCn": "排序级别",
+        "fieldName": "level",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "INT",
+        "fieldLength": "10"
+      },
+      {
+        "fieldNameCn": "发布状态 0:未发布；1：已发布",
+        "fieldName": "is_publish",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "TEXT"
+      },
+      {
+        "fieldNameCn": "home页",
+        "fieldName": "home_page_url",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "TEXT"
+      },
+      {
+        "fieldNameCn": "登出",
+        "fieldName": "logout_url",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "TEXT"
+      },
+      {
+        "fieldNameCn": "描述",
+        "fieldName": "description",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "TEXT"
+      },
+      {
+        "fieldNameCn": "创建时间",
+        "fieldName": "create_date",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "DATETIME"
+      },
+      {
+        "fieldNameCn": "更新时间",
+        "fieldName": "update_date",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "DATETIME"
+      },
+      {
+        "fieldNameCn": "img_name",
+        "fieldName": "img_name",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "VARCHAR",
+        "fieldLength": "100"
+      },
+      {
+        "fieldNameCn": "序号",
+        "fieldName": "item_order",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "INT",
+        "fieldLength": "10"
+      },
+      {
+        "fieldNameCn": "is_manage",
+        "fieldName": "is_manage",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "TINYINT",
+        "fieldLength": "3"
+      },
+      {
+        "fieldNameCn": "系统类型id",
+        "fieldName": "sys_type_id",
+        "isPk": "1",
+        "isNull": "1",
+        "scale": 0,
+        "isBusinessPk": "0",
+        "fieldType": "VARCHAR",
+        "fieldLength": "50"
+      }
+    ],
+    "mysql": {
+      "password": "123456",
+      "driver": "com.mysql.cj.jdbc.Driver",
+      "url": "jdbc:mysql://192.168.80.41:3306/bo_test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&tinyInt1isBit=false",
+      "username": "root"
+    },
+    "table_name": "mes_sys_app_copy",
+    "ipList": "[]"
+  },
+  "outMap": {},
+  "runPluginCode": "mysql",
+  "runStatus": "0",
+  "runSuccess": false,
+  "taskId": 46172,
+  "taskInfo": "SELECT * FROM mes_sys_app_copy limit 0, 5000",
+  "type": "quality"
+}
+
+//[{"createTime":1620691200000,"id":202,"name":"数据范围校验","param":"{\"dataField\":[{\"fieldName\":\"item_order\",\"minValue\":\"1\",\"maxValue\":\"9\"}]}","pluginCode":"QUALITY_DATA_RANGE","pluginId":"baaab079-f98b-4d35-ac52-d1e040fc2f18","qId":177,"status":1}]
+//[{"createTime":1620691200000,"id":203,"name":"非空校验","param":"{\"dataField\":[{\"fieldName\":\"code\"}]}","pluginCode":"QUALITY_NULL_VALUE","pluginId":"4deca364-9dd7-4430-b988-8ef52d4a35d7","qId":177,"status":1}]
+//[{"createTime":1620691200000,"id":204,"name":"身份证校验","param":"{\"dataField\":[{\"fieldName\":\"description\",\"regular\":\"^[1-9][0-9]{5}(18|19|([23][0-9]))[0-9]{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)[0-9a-zA-Z]{3}[0-9Xx]$\",\"digit\":\"18\"}]}","pluginCode":"QUALITY_DATA_IDENTITY","pluginId":"7952f88a-9cf3-446a-bca1-c303952716a1","qId":177,"status":1}]
+//[{"createTime":1620691200000,"id":205,"name":"精度校验","param":"{\"dataField\":[{\"fieldName\":\"is_publish\",\"regular\":\"^[-+]?[0-9]*\\\\\\\\.[0-9]{1}$\"}]}","pluginCode":"QUALITY_DATA_PRECISION","pluginId":"8fb3a2a7-8d58-4c1e-8bae-42a46acaf31e","qId":177,"status":1}]
+//[{"createTime":1620691200000,"id":206,"name":"正则表达式校验","param":"{\"dataField\":[{\"fieldName\":\"home_page_url\",\"regular\":\"(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]\"}]}","pluginCode":"QUALITY_DATA_REGULAR","pluginId":"b505dc3f-c0a5-46cf-8b61-9f5f0f1a57e3","qId":177,"status":1}]
