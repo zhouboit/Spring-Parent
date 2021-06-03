@@ -17,6 +17,7 @@ public class ClickHouseConfig {
     private String requestUrl;
     private String clientIp;
 
+
     public String getAddress() {
         return address;
     }
