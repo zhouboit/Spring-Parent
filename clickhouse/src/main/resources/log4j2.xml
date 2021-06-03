@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--这个Status用于设置log4j的内部输出，一般设为OFF，或者ERROR-->
+<Configuration status="OFF">
+
+    <Appenders>
+        <!--控制台输出-->
+        <Console name="SYSOUT" target="SYSTEM_OUT">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 输出日志的格式 -->
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}][%-5level][%logger{2}]-%msg%n"/>
+        </Console>
+    </Appenders>
+
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <Loggers>
+        <!--过滤掉spring的一些无用的DEBUG信息-->
+        <Root level="Debug">
+            <AppenderRef ref="SYSOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>

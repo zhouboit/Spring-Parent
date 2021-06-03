@@ -3,6 +3,11 @@ package com.jonbore.clickhouse;
 import java.util.Arrays;
 import java.util.Hashtable;
 
+/**
+ * 解析 main方法输入参数 适配-arg or --arg
+ *
+ * @author bo.zhou
+ */
 public class Option {
     private Hashtable<String, String> options = new Hashtable<>();
 
