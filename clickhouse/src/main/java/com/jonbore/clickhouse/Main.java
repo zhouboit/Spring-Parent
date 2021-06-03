@@ -19,8 +19,8 @@ public class Main {
                 "\ttimezone usage:\n" +
                 "\t\t --tz 打印当前JVM默认时区\n"
         );
+        ClickHouseConfig c = new ClickHouseConfig();
         if (args.length == 0) {
-            ClickHouseConfig c = new ClickHouseConfig();
             c.setUsername("default");
             c.setPassword("123456");
             c.setAddress("jdbc:clickhouse://192.168.81.43:8123/log_engine");
@@ -32,7 +32,6 @@ public class Main {
                 System.out.printf("属性名称:%s\t\t属性值%s\n", o, map.get(o));
             }
         } else {
-            ClickHouseConfig c = new ClickHouseConfig();
             c.setUsername(option.has("user") ? option.get("user") : "default");
             c.setPassword(option.has("password") ? option.get("password") : "123456");
             String url = "jdbc:clickhouse://" + (option.has("host") ? option.get("host") : "192.168.81.43") + ":" + (option.has("port") ? option.get("port") : "8123");
