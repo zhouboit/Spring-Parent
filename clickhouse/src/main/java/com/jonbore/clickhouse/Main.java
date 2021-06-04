@@ -30,14 +30,7 @@ public class Main {
             c.setSocketTimeout(10000);
             ClickHouseClient instance = ClickHouseClient.instance(c);
             Map map = instance.executeMap("select version() as version ,now() as now");
-            for (Object o : map.keySet()) {
-                if (String.valueOf(o).length() > Integer.parseInt(tab)) {
-                    tab= String.valueOf(String.valueOf(o).length());
-                }
-            }
-            for (Object o : map.keySet()) {
-                System.out.printf("%" + tab + "s\t\t%s\n", o, map.get(o));
-            }
+            tab = printResult(tab, map);
         } else {
             c.setUsername(option.has("user") ? option.get("user") : "default");
             c.setPassword(option.has("password") ? option.get("password") : "123456");
@@ -46,17 +39,22 @@ public class Main {
             c.setDatabase(option.has("db") ? option.get("db") : "default");
             c.setSocketTimeout(10000);
             Map map = ClickHouseClient.instance(c).executeMap(option.has("sql") ? option.get("sql") : "select version() as version ,now() as now");
-            for (Object o : map.keySet()) {
-                if (String.valueOf(o).length() > Integer.parseInt(tab)) {
-                    tab= String.valueOf(String.valueOf(o).length());
-                }
-            }
-            for (Object o : map.keySet()) {
-                System.out.printf("%" + tab + "s\t\t%s\n", o, map.get(o));
-            }
+            tab = printResult(tab, map);
         }
         if (option.has("tz")) {
             System.out.printf("%" + tab + "s\t\t%s\n", "TimeZone", TimeZone.getDefault());
         }
+    }
+
+    private static String printResult(String space, Map map) {
+        for (Object o : map.keySet()) {
+            if (String.valueOf(o).length() > Integer.parseInt(space)) {
+                space = String.valueOf(String.valueOf(o).length());
+            }
+        }
+        for (Object o : map.keySet()) {
+            System.out.printf("%" + space + "s\t\t%s\n", o, map.get(o));
+        }
+        return space;
     }
 }
