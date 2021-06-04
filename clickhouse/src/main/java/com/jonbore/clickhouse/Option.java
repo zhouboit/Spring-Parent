@@ -63,10 +63,20 @@ public class Option {
                 // -> the next argument is a parameter name
                 map.put(key, NO_VALUE_KEY);
             } else {
-                map.put(key, args[i]);
+                map.put(key, emptyObj(args[i]));
                 i += 1;
             }
         }
         return new Option(map);
+    }
+
+    private static String emptyObj(String string) {
+        if (string == null
+                || string.trim().isEmpty()
+                || string.equalsIgnoreCase("null")
+        ) {
+            return null;
+        }
+        return string;
     }
 }
