@@ -17,6 +17,7 @@
         <module>kafka</module>
         <module>ignite</module>
         <module>vm-runtime</module>
+        <module>util</module>
     </modules>
 
     <!--部署私服配置-->
@@ -47,36 +48,6 @@
         <skipTests>true</skipTests>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <ignite.version>2.9.1</ignite.version>
-        <custom.lib-path>${basedir}/libs</custom.lib-path>
-        <debezium.version>1.4.0.Final</debezium.version>
-        <kafka.connect.version>2.0.1</kafka.connect.version>
-        <fastjson.version>1.2.62</fastjson.version>
-        <druid.version>1.2.1</druid.version>
-        <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
-        <swagger.version>2.8.0</swagger.version>
-        <pf4j.version>3.0.1</pf4j.version>
-        <easyexcel.version>2.2.6</easyexcel.version>
-        <hadoop-client.version>3.1.1</hadoop-client.version>
-        <hive-jdbc.version>3.1.2</hive-jdbc.version>
-        <esgynJdbc.version>2.6.3</esgynJdbc.version>
-        <beyondb.version>4.1.6</beyondb.version>
-        <dm.version>7.6.0.142</dm.version>
-        <clickhouse.version>0.2.4</clickhouse.version>
-        <commons-dbutils.version>1.7</commons-dbutils.version>
-        <akka-actor_2.12.version>2.5.21</akka-actor_2.12.version>
-        <groovy-all.version>2.4.8</groovy-all.version>
-        <mysql-connector-java.version>8.0.21</mysql-connector-java.version>
-        <ojdbc8.version>12.2.0.1</ojdbc8.version>
-        <mssql-jdbc.version>6.2.0.jre8</mssql-jdbc.version>
-        <geo-gdal.version>2.2.0</geo-gdal.version>
-        <kafka.version>2.4.1</kafka.version>
-        <vertx-core.version>3.5.3</vertx-core.version>
-        <mvel.version>2.4.8.Final</mvel.version>
-        <jackcess.version>1.2.14</jackcess.version>
-        <libthrift.version>0.8.0</libthrift.version>
-        <xstreams.version>12.2.0.1</xstreams.version>
-        <guava.version>23.0</guava.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -168,39 +139,32 @@
             <dependency>
                 <groupId>ru.yandex.clickhouse</groupId>
                 <artifactId>clickhouse-jdbc</artifactId>
-                <version>${clickhouse.version}</version>
+                <version>0.2.4</version>
             </dependency>
 
             <!--oracle-->
             <dependency>
                 <groupId>oracle</groupId>
                 <artifactId>ojdbc8</artifactId>
-                <version>${ojdbc8.version}</version>
+                <version>12.2.0.1</version>
             </dependency>
             <!--达梦-->
             <dependency>
                 <groupId>com.dameng</groupId>
                 <artifactId>Dm7JdbcDriver18</artifactId>
-                <version>${dm.version}</version>
+                <version>7.6.0.142</version>
             </dependency>
             <!--SQLServer-->
             <dependency>
                 <groupId>com.microsoft.sqlserver</groupId>
                 <artifactId>mssql-jdbc</artifactId>
-                <version>${mssql-jdbc.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.unistrong</groupId>
-                <artifactId>beyondb</artifactId>
-                <version>${beyondb.version}</version>
-                <classifier>RELEASE</classifier>
+                <version>6.2.0.jre8</version>
             </dependency>
 
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java.version}</version>
+                <version>8.0.21</version>
             </dependency>
 
             <!--guass-->
@@ -208,12 +172,6 @@
                 <groupId>com.huawei</groupId>
                 <artifactId>gsjdbc200</artifactId>
                 <version>200</version>
-            </dependency>
-            <!--esgyn-->
-            <dependency>
-                <groupId>com.unistrong.esgyn</groupId>
-                <artifactId>esgyn</artifactId>
-                <version>${esgynJdbc.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
             <dependency>

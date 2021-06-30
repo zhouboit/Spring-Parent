@@ -95,11 +95,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.unistrong</groupId>
-            <artifactId>beyondb</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
@@ -108,11 +103,6 @@
         <dependency>
             <groupId>com.huawei</groupId>
             <artifactId>gsjdbc200</artifactId>
-        </dependency>
-        <!--esgyn-->
-        <dependency>
-            <groupId>com.unistrong.esgyn</groupId>
-            <artifactId>esgyn</artifactId>
         </dependency>
     </dependencies>
 
