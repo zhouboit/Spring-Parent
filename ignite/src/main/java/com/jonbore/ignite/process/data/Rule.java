@@ -9,4 +9,5 @@ import lombok.Setter;
 public class Rule {
     private String col;
     private String reg;
+    private String sql;
 }
