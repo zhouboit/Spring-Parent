@@ -19,6 +19,7 @@
         <module>vm-runtime</module>
         <module>util</module>
         <module>security</module>
+        <module>spark</module>
     </modules>
 
     <!--部署私服配置-->
