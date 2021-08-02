@@ -20,6 +20,9 @@
         <module>util</module>
         <module>security</module>
         <module>spark</module>
+        <module>spi</module>
+        <module>spi-api</module>
+        <module>spi-a</module>
     </modules>
 
     <!--部署私服配置-->
