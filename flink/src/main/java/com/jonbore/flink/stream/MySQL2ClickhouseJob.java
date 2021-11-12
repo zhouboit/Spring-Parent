@@ -2,7 +2,6 @@ package com.jonbore.flink.stream;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Maps;
 import com.jonbore.clickhouse.ClickHouseClient;
 import com.jonbore.clickhouse.config.ClickHouseConfig;
 import com.jonbore.flink.config.Page;
@@ -43,7 +42,7 @@ public class MySQL2ClickhouseJob {
         String targetDatabase = params.get("target");
         String format = String.format("-source %s -target %s -pkgNum %s", sourceDatabase, targetDatabase, packageSize);
         ParameterTool defaultParams = ParameterTool.fromArgs(format.split(" "));
-        HashMap<String, String> data = Maps.newHashMap();
+        HashMap<String, String> data = new HashMap<>();
         params.toMap().forEach(data::put);
         defaultParams.toMap().forEach(data::put);
         System.out.printf("将源表 %s 的数据拉取到目标表 %s 中,数据包大小为 %s\n", sourceDatabase, targetDatabase, packageSize);

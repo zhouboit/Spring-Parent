@@ -2,8 +2,8 @@ package com.jonbore.clickhouse.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -15,7 +15,7 @@ public class DSPool {
     private static final String MYSQL_QUERY_SQL = "SELECT 'X' ";
 
     static {
-        dsPools = Maps.newHashMap();
+        dsPools = new HashMap<>();
     }
 
     public static DruidDataSource removeDataSource(String id) {

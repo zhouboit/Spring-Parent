@@ -1,0 +1,13 @@
+{
+  "where": {
+    "key": "policeTable"
+  },
+  "contains": {
+    "formatExhibition": "return function (response,relationData,context,callback) {\n    callback({\n        status: response.data.status,\n        content: response.data.content.rows,\n        total: response.data.content.total,\n    })\n};",
+    "formatResponse": "return function (response,relationData,context,callback) {\n    callback({\n        status: response.data.status,\n        content: response.data.content.rows,\n        total: response.data.content.total,\n    })\n};"
+  },
+  "data": {
+    "formatExhibition": "return function (response,relationData,context,callback) {\n    const my = context.my;\n    my.invokeFunction({\n        name: \"jzBaseJs\",\n        data: {\n        response: response,\n        relationData: relationData\n        },\n        handler: \"setTableValue\",\n        success(res) {\n        response = res;\n        callback({\n            status: response.data.status,\n            content: response.data.content.rows,\n            total: response.data.content.total,\n        })\n        },\n\n    });\n};",
+    "formatResponse": "return function (response,relationData,context,callback) {\n    const my = context.my;\n    my.invokeFunction({\n        name: \"jzBaseJs\",\n        data: {\n        response: response,\n        relationData: relationData\n        },\n        handler: \"setTableValue\",\n        success(res) {\n        response = res;\n        callback({\n            status: response.data.status,\n            content: response.data.content.rows,\n            total: response.data.content.total,\n        })\n        },\n\n    });\n};"
+  }
+}

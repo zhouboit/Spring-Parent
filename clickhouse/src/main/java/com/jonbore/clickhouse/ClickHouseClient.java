@@ -1,7 +1,5 @@
 package com.jonbore.clickhouse;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.jonbore.clickhouse.config.ClickHouseConfig;
 import com.jonbore.clickhouse.config.DSPool;
 import ru.yandex.clickhouse.ClickHouseDataSource;
@@ -9,9 +7,7 @@ import ru.yandex.clickhouse.ClickHouseDataSource;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.sql.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created on 2021/3/26.
@@ -87,9 +83,9 @@ public class ClickHouseClient {
             }
             results = ps.executeQuery();
             ResultSetMetaData rsmd = results.getMetaData();
-            List<Map> list = Lists.newArrayList();
+            List<Map> list = new ArrayList<>();
             while (results.next()) {
-                Map row = Maps.newHashMap();
+                Map row = new HashMap();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     row.put(getLowerCamelCaseName(rsmd.getColumnName(i)), results.getObject(rsmd.getColumnName(i)));
                 }
@@ -134,7 +130,7 @@ public class ClickHouseClient {
                 return null;
             }
             ResultSetMetaData rsmd = results.getMetaData();
-            Map row = Maps.newHashMap();
+            Map row = new HashMap();
             while (results.next()) {
                 row.clear();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
@@ -268,7 +264,7 @@ public class ClickHouseClient {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        List<T> tList = Lists.newArrayList();
+        List<T> tList = new ArrayList<>();
         try {
             connection = getConnection();
             ps = connection.prepareStatement(sql);
