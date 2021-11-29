@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class PackageScanMain {
     public static void main(String[] args) throws IOException {
-        List<String> collect = new ArrayList<>(JarUtil.scanBootstrapClass("java.io"));
+        List<String> collect = new ArrayList<>(JarUtil.scanClass("com.jonbore.groovy.util"));
         Collections.sort(collect);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(collect));

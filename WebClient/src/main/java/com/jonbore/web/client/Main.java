@@ -51,11 +51,11 @@ public class Main {
         JSONObject header = new JSONObject();
         header.put("Cookie", "tokenId=" + token);
         header.put("Content-Type", "application/json;charset=utf-8");
-        String byCondition = "/byCondition";
-        String updating = "/updating";
-        HttpClient instance = HttpClient.instance(baseUrl);
-        String result = instance.sendPost(byCondition, header, data.getJSONObject("where"));
-        if (result==null||result.trim().isEmpty()) {
+        String byCondition = baseUrl + "/byCondition";
+        String updating = baseUrl + "/updating";
+//        HttpClient instance = HttpClient.instance(baseUrl);
+        String result = HttpClient.sendPost(byCondition, header, data.getJSONObject("where"));
+        if (result == null || result.trim().isEmpty()) {
             System.out.println("http request exception");
             System.exit(127);
         }
@@ -75,7 +75,7 @@ public class Main {
             if (flag) {
                 config.putAll(data.getJSONObject("data"));
                 row.put("config", config.toJSONString());
-                String sendPost = instance.sendPost(updating, header, row);
+                String sendPost = HttpClient.sendPost(updating, header, row);
                 System.out.println(sendPost);
                 edit++;
             }

@@ -5,11 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
 import static java.util.zip.ZipFile.OPEN_READ;
 
@@ -29,10 +28,15 @@ public class JarUtil {
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
                 if (url != null) {
-                    JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
-                    if (jarURLConnection != null) {
-                        JarFile jarFile = jarURLConnection.getJarFile();
-                        scanClass(scanClass, jarFile, packageName);
+                    if (url.getProtocol().equals("jar")) {
+                        JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
+                        if (jarURLConnection != null) {
+                            JarFile jarFile = jarURLConnection.getJarFile();
+                            scanClass(scanClass, jarFile, packageName);
+                        }
+                    } else if (url.getProtocol().equals("file")) {
+                        List<String> classList = Arrays.stream(Objects.requireNonNull(new File(url.getPath()).listFiles())).map(File::getName).filter(name -> name.endsWith(".class")).map(name -> packageName.concat(".").concat(name.substring(0, name.length() - ".class".length()))).collect(Collectors.toList());
+                        scanClass.addAll(classList);
                     }
                 }
             }
